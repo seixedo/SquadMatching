@@ -1,0 +1,47 @@
+﻿@model SquadMatching.Models.GrupoModel
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<link rel="stylesheet" href="~/css/PartialGrupos.css" />
+<div id="corpo3">
+    <div class="BuscaGrupo">
+
+    </div>
+   
+    <div class="InsertGrupo">
+        <button id="KillWind" class="btn btn-danger" style="float:right;position:relative">X</button>
+        <div style="text-align:center; position:relative;margin-top:35%;">
+            <h1 style="color:black">Criar Grupo</h1>
+            @using (Html.BeginForm("InsertGrupo", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+            {
+                <div style="text-align">
+
+                    @Html.EditorFor(model => model.Nome, new
+               {
+                   htmlAttributes =
+                                                                                             new
+                                                                                             {
+                                                                                                 @class = "txtb2",
+                                                                                                 placeholder = "Nome Grupo",
+                                                                                                 autofocus = true,
+                                                                                                 required = "required",
+
+                                                                                             }
+               })
+                </div>
+
+                <input class="login-btn" type="submit" value="CRIAR" />
+            }
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(".BuscaGrupo").ready(function () {
+        $(".BuscaGrupo").load( '@Url.Action("ListaGrupos", "Home")');
+    })
+    $("#KillWind").click(function () {
+        $("#corpo3").remove();
+
+    })
+</script>

@@ -1,0 +1,29 @@
+﻿@model IList<SquadMatching.Models.UsuarioModel>
+<link rel="stylesheet" href="~/css/Perfil.css" />
+<link rel="stylesheet" href="~/css/Home.css" />
+<div id="corpo3">
+    <div id="CorpoPendencia">
+        @{
+            for (var i = 0; i < @Model.Count(); i++)
+            {<div>
+    <h5 style="color:black">@Model[i].Nome</h5>
+    <button class="btn btn-danger" onclick="location.href = '@Url.Action("AceitarPendencia", "Home")?CD_ALUNO='+@Model[i].CD_aluno +'&CD_GRUPO='+@ViewBag.CD_GRUPO">Aceitar</button> <button class="btn btn-danger" onclick="location.href = '@Url.Action("RecusarPendencia", "Home")?CD_ALUNO='+@Model[i].CD_aluno +'&CD_GRUPO='+@ViewBag.CD_GRUPO">Recusar</button> <button class="btn btn-danger" onclick="Detalhes(@Model[i].CD_aluno)">Detalhes</button>
+
+
+</div>
+
+            }
+
+        }
+    </div>
+ <div id="LabelPendencia">
+
+ </div>
+</div>
+<script>
+    function Detalhes(id) {
+        console.log("id:" + id)
+        $("#detalhesuser").remove;
+        $("#LabelPendencia").load('@Url.Action("ShowDetalhes","Home")?id='+id);
+    }
+</script>

@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model SquadMatching.Models.GrupoModel
+<link rel="stylesheet" href="~/css/Perfil.css" />
+<link rel="stylesheet" href="~/css/Home.css" />
+
+<div id="corpo3">
+    <div id="ViewGrupo">
+        <div style="text-align:right;"><button id="TesteBTN2" class="btn btn-danger" style="">X</button></div>
+
+        @foreach (var Aluno in Model.Alunos)
+        {
+            <div id="Aluno" class="labelProfilePic" style="margin-bottom:10px;width:100%;">
+                <img src="~/images/ProfilePics/@Aluno.imgPath" /><br />
+                <h6 id="NomeAlunoH" style="opacity:1;color:white"> @Aluno.Nome</h6>
+            </div>
+            <br />
+        }
+
+        <input id="LinkTrab" placeholder="LINK ATIVIDADE" />
+        @{ if (ViewBag.ESquadMaster2 is true)
+            {
+                <button id="UpTrab" class="btn btn-danger"><i style="font-size:20px;" class="fa fa-check-square"></i></button>  } }
+        
+    </div>
+    <div id="ViewChat">
+
+    </div>
+</div>
+<script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+<script>
+
+    $("#TesteBTN2").click(function () {
+        $(this).closest("#corpo3").remove();
+    })
+    $("#UpTrab").click(function () {
+
+        var cod_grupo = @ViewBag.CD_GRUPO;
+        console.log(cod_grupo)
+       // console.log($("#LinkTrab").val())
+       location.href='@Url.Action("UPTRAB","Home")?Link='+ $("#LinkTrab").val() +'&CD_GRUPO='+cod_grupo
+    })
+    $("#ViewChat").ready(function () {
+        $("#ViewChat").load( '@Url.Action("_PartialChat", "Home")');
+    })
+     function GetLink(callback) {
+            var teste = null
+            $.ajax({
+                type: "GET",
+                async:true,
+                url: '/Home/GetLinkTarefa',
+                dataType: "json",
+                data: {cd_grupo:@ViewBag.CD_GRUPO},
+                success: callback
+               
+            }
+
+
+
+            );
+
+    }
+
+    function UpdateInput(Link) {
+        console.log(Link)
+        $("#LinkTrab").val(Link)
+    }
+    $(document).ready(function () {
+        GetLink(UpdateInput)
+    })
+</script>

@@ -1,0 +1,92 @@
+﻿@model IList<SquadMatching.Models.HabilidadeModel>
+    <div id="detalhesuser">
+        <header style="background-color:gray;height:38px;">
+            <h4 style="color:white;text-align:center;">Detalhes</h4>
+
+        </header>
+        <div>
+
+
+            <div id="DisplayConcentricBoard" style="width:97vh;margin-top:38px;max-width:445px;">
+            </div>
+        </div>
+    </div>
+<script>
+    $("#KillWind").click(function () {
+        $("dashboardperfil").remove();
+
+    })
+    function GetHab(callback) {
+            console.log(@ViewBag.DetalhesId)
+              $.ajax({
+                type: "POST",
+                  url: '/Home/_PartialDetalhes',
+                  data: {id:@ViewBag.DetalhesId},
+                dataType: "json",
+                  success: callback
+            })
+    }
+    function renderizar(Habilidades) {
+
+         var ArrayHab = [];
+            for (item in Habilidades) {
+                ArrayHab.push(Habilidades[item]);
+        }
+
+         for (var i = 0; i < ArrayHab.length; i++) {
+                console.log("teste");
+                var div = document.createElement('div');
+                div.setAttribute("id", i.toString());
+             div.style.width = "100%";
+             div.style.display = "inline-block";
+             div.style.marginBottom="10px"
+
+                var div2 = document.createElement('div');
+
+
+                var header = document.createElement('header');
+                var Habilidade = document.createTextNode(ArrayHab[i].descricao);
+                header.style.textAlign = 'center';
+                header.style.fontSize = '20px';
+             header.style.marginLeft = "10px";
+             header.style.color = "white";
+
+                header.appendChild(Habilidade);
+
+
+             var footer = document.createElement('footer');
+
+             footer.appendChild(div);
+             footer.style.textAlign = "center";
+
+                div2.appendChild(header);
+                div2.appendChild(footer);
+
+
+
+
+
+                div2.style.cssFloat = "left"
+             div2.style.alignContent = "center"
+             div2.style.marginLeft="20px"
+                var Atividade = document.getElementById("DisplayConcentricBoard");
+                Atividade.appendChild(div2)
+                CriarConcentric(i,((ArrayHab[i].rating*100)/5))
+
+            }
+
+    }
+
+      function CriarConcentric(id, perc) {
+            console.log(id)
+            jQuery("#" + id).radialProgress("init", {
+
+  'size': 100,
+  'fill':10,'color':"#ffffff"
+}).radialProgress("to", {'perc': perc, 'time': 5000});
+    }
+    $(document).ready(function () {
+        GetHab(renderizar)
+    })
+
+</script>

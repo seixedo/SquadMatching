@@ -1,0 +1,62 @@
+﻿#corpo3 {
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.43);
+    animation: movey;
+    animation-duration: 1000ms;
+    grid-column-start: 3;
+    grid-column-end: 10;
+    background-color: rgb(216, 213, 213);
+    min-height: 100%;
+    max-height: 100%;
+    min-width: 141.3vh;
+    border-radius: 6px;
+    z-index: 2;
+    position: absolute;
+    overflow-y: no-display;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.InsertGrupo {
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+
+.BuscaGrupo {
+    min-height: 21.5vh;
+    max-height: 75vh;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 0;
+}
+
+.login-btn {
+    width: 240px;
+    background: #ff0000;
+    border: 0;
+    color: white;
+    padding: 10px 0 10px 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+    max-width: 225px;
+}
+#CorpoListaGrupo {
+    display: grid;
+    grid-template-columns: 12vh 15vh 10vh;
+    min-width: 5px;
+    max-width: 10px;
+}
+
+.AlunosCard {
+    background-color: rgba(95, 91, 91, 0.86);
+    text-align: center;
+    min-width: 300px;
+    max-width: 400px;
+    border-radius: 6px;
+    color: white;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin-top: 10px;
+}

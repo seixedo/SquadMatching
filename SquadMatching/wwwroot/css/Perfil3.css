@@ -1,0 +1,126 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
+for details on configuring this project to bundle and minify static web assets. */
+
+/* Wrapping element */
+
+.nav-bar {
+    position: fixed;
+}
+/* Carousel */
+
+
+
+
+
+
+
+.TabContainer .TurmaCard {
+    animation: move;
+    animation-duration: 1000ms;
+}
+
+.TurmaCard {
+    background-color: rgba(216, 213, 213, 0.64);
+    width: 600PX;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 20px;
+    margin-bottom: 25px;
+    color: black;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+#Dados {
+    height: 10px;
+}
+
+
+@keyframes move {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes movey {
+    from {
+        opacity: 0;
+        transform: translateY(200%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes moveyTopDown {
+    from {
+        opacity: 0;
+        transform: translateY(-200%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+
+
+.container2 {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    min-height:300px;
+    min-width:300px;
+    max-width: 100%;
+    
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+main {
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+
+html, body {
+    margin-top:70px;
+    position:relative;
+    box-sizing: border-box;
+    background: url(../images/LBL/uni-1280x720.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+
+@keyframes slide {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,182 @@
+﻿
+
+.login-form {
+    text-align: center;
+    margin-top: 50px !important;
+    margin: 0 auto;
+    animation-name: slide;
+    animation-duration: 1s;
+    background-color: rgba(216, 213, 213, 0.64);
+    padding: 40px;
+    border-radius: 6px;
+    max-width: 300px;
+    min-height: 400px;
+    max-height: 400px;
+    overflow: hidden;
+    align-content: center;
+    overflow-y:scroll;
+}
+
+
+
+.txtb {
+    display: block;
+    box-sizing: border-box;
+    width: 270px;
+    background: #ffffff28;
+    border: 1px solid white;
+    padding: 10px 20px;
+    color: black;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.txtb2 {
+    box-sizing: border-box;
+   
+    background: #ffffff28;
+    border: 1px solid white;
+    padding: 10px 20px;
+    color: white;
+    outline: none;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.input-group textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 270px;
+    background: #ffffff28;
+    border: 1px solid white;
+    padding: 10px 20px;
+    color: white;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.login-btn {
+    width: 240px;
+    background: #ff0000;
+    border: 0;
+    color: white;
+    padding: 10px 0 10px 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+    max-width: 225px;
+}
+
+.Elemento {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin-bottom: 10px;
+    background-color:rgba(165, 148, 148, 0.76);
+    border-radius: 6px;
+    text-align: center;
+}
+
+
+.HabTxt {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: white;
+    border-radius: 6px;
+    margin:0 auto;
+    overflow-wrap: break-word;
+}
+
+.remove {
+    grid-column-start: 3;
+    grid-column-end: 3;
+    margin:auto;
+    border-radius: 6px;
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    padding-left: 6px;
+    background: #ff0303;
+    margin: auto auto;
+
+}
+
+
+html, body {
+    margin: 0;
+    padding-top: 40px;
+    box-sizing: border-box;
+    background: url(../images/LBL/uni-1280x720.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+
+@keyframes slide {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ffffff;
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background: #000000;
+    }
+
+::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0px solid #ffffff;
+    border-radius: 50px;
+}
+
+    ::-webkit-scrollbar-track:hover {
+        background: #666666;
+    }
+
+    ::-webkit-scrollbar-track:active {
+        background: #333333;
+    }
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

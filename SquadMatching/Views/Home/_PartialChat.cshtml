@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+
+<link rel="stylesheet" href="~/css/chat.css" />
+<div class="ChatGrid">
+    <div style="min-width:460px;max-width:460px;min-height:400px;max-height:400px;background-color:rgb(235, 142, 142)">
+
+        <div>
+            <ul class="UlChat" id="messages"></ul>
+        </div>
+
+    </div>
+   
+</div>
+ <footer id="InputTxt" style="background-color:rgb(187, 37, 37)">
+        <br />
+        <input style="min-width:350px;max-width:350px;float:left" type="text" class="form-control" id="text-message" placeholder="MENSAGEM" /> <button id="send-button" class="btn btn-primary btn-danger" style="float:right;margin-right:10px">Enviar</button>
+
+
+
+    </footer>
+ <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+<script>
+    var cod_grupo = @ViewBag.CD_GRUPOCHAT;
+    var MinhaMatricula = "@HttpContextAccessor.HttpContext.Session.GetString("Matricula")"
+
+        var db = new Firebase('https://squadchattcc.firebaseio.com/GrupoChat'+cod_grupo);
+        $('#send-button').click(function () {
+              console.log("Enviando")
+             var message = $('#text-message').val();
+            var id = "@HttpContextAccessor.HttpContext.Session.GetString("Matricula")";
+    
+            var Nome ="@Html.Raw(HttpContextAccessor.HttpContext.Session.GetString("Nome"))"
+       
+        db.push({ message: message,id:id,Nome:Nome });
+        $('#text-message').val("");
+
+        console.log(cod_grupo)
+
+    });
+         db.on('child_added', function(snapshot) {
+             var data = snapshot.val();
+             console.log(MinhaMatricula + " Minha Matricula")
+             console.log(data.id + "Matricula base")
+             if (MinhaMatricula.localeCompare(data.id)) {
+                 $('#messages').append($('<li class="LiChatRecebido">').text(data.Nome));
+                 $('#messages').append($('<li class="LiChatRecebido">').text(data.message));
+                 $('#messages').append($('<br/>'))
+             } else {
+                 $('#messages').append($('<li class="LiChatEnviado">').text(data.Nome));
+                 $('#messages').append($('<li class="LiChatEnviado">').text(data.message));
+                 $('#messages').append($('<br/>'))
+             }
+             
+    });
+</script>
+
+

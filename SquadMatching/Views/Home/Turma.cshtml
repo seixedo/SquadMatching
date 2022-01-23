@@ -1,0 +1,103 @@
+﻿@model IEnumerable<SquadMatching.Models.AtividadeModel>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{ Layout = "_LayoutPerfil";}
+    <link rel="stylesheet" href="~/css/Turma.css" />
+    <div id="CompararCorpo"></div>
+    <div id="table">
+        <div id="table2">
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Descricao  @{ if (@HttpContextAccessor.HttpContext.Session.GetString("EProfessor") == "True")
+                                {
+
+                                } }
+                            @{ if (@HttpContextAccessor.HttpContext.Session.GetString("EProfessor") == "False")
+                                {
+                                    <button type="button" style="margin-left:10px" class="btn btn-outline-danger fa fa-plus" id="Comparar"></button>
+                                } }
+                        </th>
+                        @{
+                            if (@HttpContextAccessor.HttpContext.Session.GetString("EProfessor") == "True")
+                            {
+                                                <th>
+                                                    <button type="button" style="margin-left:10px" class="btn btn-outline-danger fa fa-plus" onclick="location.href ='@Url.Action("PainelProfessor", "Home")'"></button>
+                                                    <button type="button" style="margin-left:10px" class="btn btn-outline-danger" id="GetLink">LINK</button>
+                                                </th>
+                            }
+                         }
+                        
+                            
+
+
+                    </tr>
+                </thead>
+                <tbody id="Dados">
+
+
+                    @{
+                        var count = 0;
+                        foreach (var atividade in Model)
+                        {
+                            count++;
+                            <tr>
+
+                                <td>@atividade.CD_Atividade</td>
+
+                                <td>Atividade @count</td>
+
+                                <td>  <button type="button" class="btn btn-outline-danger fa fa-angle-right" onclick="location.href ='@Url.Action("Atividade", "Home")?CD_Atividade=@atividade.CD_Atividade'"></button></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+        
+    </div>
+
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="~/radial-progress-bar-master/radial-progress-bar.js"></script>
+
+
+    <script>
+        $("#GetLink").click(function () {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var cd_turma = url.searchParams.get("idt");
+            var cd_materia = url.searchParams.get("idm");
+            var $temp = $("<input>");
+
+            console.log(url.host)
+            console.log(url.port)
+            $("body").append($temp);
+            var Link = "https://"+url.hostname+":"+url.port+"/Home/SetAlunoTurma?cd_turma="+cd_turma+"&&cd_materia="+cd_materia
+            
+            //var Link=
+            $temp.val(Link)
+            $temp.select();
+            document.execCommand("copy");
+            $temp.remove();
+        })
+       
+        $("#Comparar").click(function () {
+            $("#corpoComparar").remove();
+    $("#CompararCorpo").load('@Url.Action("CompararAlunoTurma", "Home")');
+    })
+    </script>
+}
+

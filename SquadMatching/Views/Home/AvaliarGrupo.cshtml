@@ -1,0 +1,92 @@
+﻿@model IList<SquadMatching.Models.UsuarioModel>
+@{ Layout = "_LayoutAtividade";}
+<link rel="stylesheet" href="~/css/Perfil.css" />
+<link rel="stylesheet" href="~/css/Home.css" />
+@using (Html.BeginForm("AvaliarGrupo", "Home", FormMethod.Post))
+{
+    <div class="AvalContainer">
+        <corpo>
+            <div class="conteudo">
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                    @Html.HiddenFor(modeItem => Model[i].Nome)
+                    @Html.HiddenFor(modeItem => Model[i].Matricula)
+                    <h1 style="color:black">
+                        @Html.DisplayFor(modelItem => Model[i].Nome, new
+                   {
+                       htmlAttributes =
+                                                                new
+                                                                {
+                                                                    @style = "color:blue"
+                                                                }
+                   })
+                    </h1>
+                    for (var j = 0; j < Model[i].Habilidades.Count(); j++)
+                    {
+                        @Html.HiddenFor(model => @Model[i].Habilidades[j].Descricao)
+                        <h4>@Model[i].Habilidades[j].Descricao</h4>
+
+                        <div class="rating" data-rate-value=5>
+                            @Html.HiddenFor(model => Model[i].Habilidades[j].Rating, new { id = "rating" })
+                        </div>
+                        
+                            
+                            @Html.TextAreaFor(model => Model[i].Habilidades[j].OBS, new
+                       {
+                           htmlAttributes =
+                                                                new
+                                                                {
+                                                                    @class = "txtarea2",
+                                                                    @placeholder = "Descricao",
+                                                                    required = "required"
+                                                                }
+                       })
+                           
+                    
+                        
+                        <br />
+
+
+
+                    }
+
+                    <br />
+
+
+                }
+                <input class="login-btn" type="submit" value="ENVIAR" />
+            </div>
+        </corpo>
+    </div>
+}
+
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="~/rater-master/rater.js"></script>
+    <script>
+        var options = {
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: 0,
+            selected_symbol_type: 'utf8_star', // Must be a key from symbols
+            cursor: 'default',
+            readonly: false,
+            change_once: false, // Determines if the rating can only be set once
+
+        }
+
+        $(".rating").rate(options);
+        // $("input").val($(".rating").attr("data-rate-value"))
+        $(".rating").click(function () {
+            var inpt = $(this).children("#rating");
+            inpt.val($(this).attr("data-rate-value"))
+            console.log("teste")
+            inpt.val(inpt.val().toString().replace(".", ","));
+
+        })
+                            //$("input").val($("input").closest(".rating").attr("data-rate-value"))
+    </script>
+}   

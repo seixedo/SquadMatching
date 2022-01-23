@@ -1,0 +1,99 @@
+﻿
+@model IList<SquadMatching.Models.GrupoModel>
+    <link rel="stylesheet" href="~/css/ProfAvaliaAluno.css" />
+@using (Html.BeginForm("ProfAvaliaNota", "Home", FormMethod.Post)){
+    <div id="corpoProfAvalia">
+        <div style="align-content:center" id="ConteudoGrupos">
+            @{
+                for (var i = 0; i < Model.Count(); i++)
+                {
+                    <div class="AlunosCard">
+                        <header class="TituloGrupo">
+
+
+
+                                        <div>
+                                            <h5 style="text-align:center;">
+                                                @Html.HiddenFor(model => Model[i].id)
+                                                @Model[i].Nome
+                                                <br />
+                                                Atividade: <input value="@Model[i].LinkAtividade" style="width:80px;" readonly />
+
+
+
+                                            </h5>
+                                            
+                                                @{
+
+                                                    String nota = Convert.ToString(Model[i].Nota);
+
+
+                                                    <div class="rating2" data-rate-value=@nota.Replace(",",".")>
+                                                        @Html.HiddenFor(model => Model[i].Nota, new { id = "rating" })
+                                                    </div>
+
+                                                }
+                                         
+                                        </div>
+
+
+                            <hr style="border-width:1px;border-style:inset" />
+                        </header>
+
+
+                        <footer>
+                            @for (var j = 0; j < Model[i].Alunos.Count(); j++)
+                            {
+                                <h6>@Model[i].Alunos[j].Nome</h6>
+                                <hr style="border-width:1px;border-style:inset" />
+                            }
+
+
+                        </footer>
+
+                    </div>
+                    <br />}
+
+
+
+            }
+            <input style="position:relative;left:10%" class="login-btn" type="submit" value="ENVIAR" />
+        </div>
+       
+    </div>
+      
+  
+}
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="~/rater-master/rater.js"></script>
+    <script>
+        var options = {
+            max_value: 5,
+            step_size: 0.5,
+            initial_value: 0,
+            selected_symbol_type: 'utf8_star', // Must be a key from symbols
+            cursor: 'default',
+            readonly: false,
+            change_once: false, // Determines if the rating can only be set once
+
+        }
+        $(document).ready(function () {
+            console.log("carregar rating")
+             $(".rating2").rate(options);
+        })
+       
+        // $("input").val($(".rating").attr("data-rate-value"))
+        $(".rating2").click(function () {
+            var inpt = $(this).children("#rating");
+            inpt.val($(this).attr("data-rate-value"))
+            console.log("teste")
+            inpt.val(inpt.val().toString().replace(".", ","));
+
+        })
+        console.log("carregou av")
+                                                //$("input").val($("input").closest(".rating").attr("data-rate-value"))
+    </script>

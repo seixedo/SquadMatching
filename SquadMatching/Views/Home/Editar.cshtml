@@ -1,0 +1,62 @@
+﻿@model SquadMatching.Models.CadastroModel;
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{ Layout = "_LayoutPerfil";}
+<link rel="stylesheet" href="~/css/Perfil.css" />
+<link rel="stylesheet" href="~/css/Home.css" />
+<div class="login-box">
+    <div class="login-form">
+        @using (Html.BeginForm("Editar", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+        {
+
+            <div class="labelProfilePic ">
+                <img class="labelProfilePic " src="~/images/ProfilePics/@Model.ImagePath" />
+            </div>
+
+            <div style="margin-bottom: 25px" class="input-group">
+
+                @Html.EditorFor(model => model.Nome, new
+           {
+               htmlAttributes =
+                                               new
+                                               {
+                                                   @class = "txtb",
+                                                   placeholder = "Nome",
+                                                   autofocus = true,
+                                                   required = "required"
+                                               }
+           })
+                @Html.ValidationMessageFor(model => model.Nome, "",
+                                               new { @class = "text-danger" })
+            </div>
+
+            <div style="margin-bottom: 10px" class="input-group">
+
+                @*Html.DropDownListFor(model => model.CD_Habilidade, Model.Habilidades, new { @@class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CD_Habilidade, "", new { @class = "text-danger" })*@
+
+
+            </div>
+            <div style="margin-bottom: 25px" class="input-group">
+                @*Html.DropDownListFor(model => model.CD_Habilidade2, Model.Habilidades, new { @@class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CD_Habilidade, "", new { @class = "text-danger" })*@
+            </div>
+
+            <div style="margin-bottom: 25px" class="input-group">
+                @Html.TextBoxFor(m => m.image, new { type = "file", name = "Files" })
+            </div>
+            @if (ViewBag.Error != null)
+            {
+                <label>@ViewBag.Error</label>
+                <br />
+            }
+            <div class="col-sm-12 controls">
+                <input class="login-btn" type="submit" value="ENVIAR" />
+
+            </div>
+
+        }
+
+    </div>
+
+</div>

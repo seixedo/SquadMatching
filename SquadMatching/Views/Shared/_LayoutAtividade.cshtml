@@ -1,0 +1,194 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SquadMatching</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/fontawesome-free-5.11.2-web/css/all.css" />
+        <link rel="stylesheet" href="~/css/Header.css" />
+        
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script src="https://kit.fontawesome.com/4fd4a63401.js" crossorigin="anonymous"></script>
+    </environment>
+</head>
+@{
+    if (HttpContextAccessor.HttpContext.Session.GetString("Nome") != null)
+    {
+        <body>
+
+
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background:rgb(209, 53, 53)">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SquadMatching</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+
+                            <a class="nav-link" style="color:white" asp-controller="Home" asp-action="Index">Inicio <i class="fa fa-home"></i></a>
+                         
+
+                        </li>
+
+
+
+
+                    </ul>
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div id="ScoreAluno" style="margin-left:5px"></div>
+                                    @{
+                                        String nome = @HttpContextAccessor.HttpContext.Session.GetString("Nome");
+                                        <div class="labelProfilePic">
+                                            <img src="~/images/ProfilePics/@HttpContextAccessor.HttpContext.Session.GetString("imgPath")" />
+                                            @try
+                                            {<h3 id="LblNome" style="color:white">@nome.Substring(0, nome.IndexOf(" "))</h3>
+                                        }
+                                        catch
+                                        {
+                                            <h3 style="color:white">@nome</h3>
+                                        }
+
+                                        </div>
+
+                                    }
+                                </a>
+                                <div style="margin-left:60px;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Editar">Editar</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Logout<i class="fa fa-door-open"></i></a>
+
+                                
+                                </div>
+                            </li>
+                            <li class="nav-item active labelProfilePic">
+
+
+
+
+
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+            <main>
+                
+                <div class="wrapper">
+
+                    @RenderBody()
+
+
+                </div>
+            </main>
+
+
+
+            <partial name="_CookieConsentPartial" />
+
+
+
+            <environment include="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment exclude="Development">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery"
+                        crossorigin="anonymous"
+                        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+                </script>
+
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                        crossorigin="anonymous"
+                        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+            </environment>
+
+            @RenderSection("Scripts", required: false)
+        </body>
+    }
+    else
+    {
+        @RenderSection("Scripts", required: false);
+        <script>
+$(document).ready(function () {
+    console.log("teste");
+    location.href = ("@Url.Action("Index","Home")");
+
+})
+        </script>
+    }
+}
+
+</html>
+
+@section Scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="~/radial-progress-bar-master/radial-progress-bar.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("Full load call function");
+        })
+    </script>
+
+}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/radial-progress-bar-master/radial-progress-bar.js"></script>
+<script>
+
+    function GetScore(callback) {
+        $.ajax({
+            type: "POST",
+            url: '/Home/GetScoreAluno',
+            dataType: "json",
+            success: callback
+        })
+    }
+    function RenderScore(Dados) {
+        console.log(Dados);
+        console.log("Render")
+        $("#ScoreAluno").radialProgress("init", {
+
+            'font-size': 20,
+            'size': 50,
+            'fill': 10, 'color': "#ffffff"
+        }).radialProgress("to", { 'perc': (Dados * 100) / 5, 'time': 5000 });
+    }
+    $("#ScoreAluno").ready(function () {
+        GetScore(RenderScore);
+        console.log("Full load call function");
+    })
+    $("#Renderizar").click(function () {
+          var header = document.createElement('DashBoard');
+    $("#Grupo").append(header)
+    $("DashBoard").load('@Url.Action("CompararAlunoTurma", "Home")')
+    })
+    
+    
+  
+</script>

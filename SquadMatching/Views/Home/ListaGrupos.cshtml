@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model IList<SquadMatching.Models.GrupoModel>
+
+    <div id="CorpoListaGrupo">
+        @{
+
+            foreach (var Grupos in Model)
+            {
+
+
+
+                <div class="AlunosCard">
+                            <header class="TituloGrupo">
+
+                                        
+                                @{ 
+                                    if (Grupos.Alunos.Count < 5)
+                                    {
+                                                                <div>
+                                                                    <h5 style="text-align:center;">
+                                                                        @Grupos.Nome <a class="btn btn-block" onclick="location.href = '@Url.Action("ParticiparGrupo", "Home")?idg=@Grupos.id'">
+                                                                        Participar <i class="fa fa-arrow-alt-circle-right"></i>
+                                                                    </a>
+                                                                </h5>
+                                                                </div>
+                                    }
+                                }
+                                <hr style="border-width:1px;border-style:inset" />
+                            </header>
+                    
+
+                    <footer>
+                        @foreach (var Alunos in Grupos.Alunos)
+                        {
+
+                            <h6>@Alunos.Nome</h6>
+                            <hr style="border-width:1px;border-style:inset" />
+                            
+                        }
+                    </footer>
+
+                </div>
+                <br />
+                
+            }
+
+
+        }
+
+    </div>
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.MeuButton').on('click', function () {
+                $('.collapse').collapse('hide');
+            })
+        })
+    </script>
+}

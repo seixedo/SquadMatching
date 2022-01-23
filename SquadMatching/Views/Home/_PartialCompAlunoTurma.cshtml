@@ -1,0 +1,90 @@
+﻿@model IList<Double>
+    <link rel="stylesheet" href="~/css/CompararAlunoTurma.css" />
+    <div id="corpoComparar" style="margin-right:80px;">
+        
+        <div id="NotaAlunoContainer">
+            <div style="margin:25px;margin-left:40px">
+                <header>Minha Media</header>
+                <footer><div id="NotaAluno"></div></footer>
+            </div>
+        </div>
+
+        <div id="NotaTurmaContainer">
+            <button class="btn btn-danger" id="teste" style="float:right;position:sticky">X</button>
+            <div style="margin:30px auto; position:absolute">
+                <header>Media Turma</header>
+                <footer><div id="NotaTurma"></div></footer>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    
+
+    <script>
+        var Notas;
+        $("#CompararCorpo").change(function () {
+            console.log("teste");
+        })
+        $("#teste").click(function () {
+            $(this).closest("#corpoComparar").remove();
+        })
+
+        function GetHab3(callback) {
+            var teste = null
+            $.ajax({
+                type: "GET",
+                async:true,
+                url: '/Home/MediaAlunoGrupoAtividade',
+                dataType: "json",
+                success: callback
+               
+            }
+
+
+
+            );
+
+        }
+
+        function LoadView(Dados) {
+
+            console.log(Dados);
+            CriarConcentric("NotaAluno", (Dados[0] * 100) / 5);
+            CriarConcentric("NotaTurma", (Dados[1] * 100) / 5);
+            console.log(Dados);
+        }
+
+
+
+
+      
+
+
+        function CriarConcentric(id, perc) {
+         
+            jQuery("#" + id).radialProgress("init", {
+
+                'size': 100,
+                'fill': 10, 'color': "#eb0e28"
+            }).radialProgress("to", { 'perc': perc, 'time': 5000 });
+        }
+
+        $(document).ready(function () {
+
+
+            GetHab3(LoadView)
+            /*GetHab(CriarConcentric("NotaAluno", (teste[0] * 100) / 5));
+            GetHab(CriarConcentric("NotaTurma", (teste[1] * 100) / 5));*/
+        })
+
+
+
+    </script>

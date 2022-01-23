@@ -1,0 +1,69 @@
+﻿@model IList<SquadMatching.Models.HabilidadeModel>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="~/css/PartialDetalhes.css" />
+<link rel="stylesheet" href="~/css/Perfil.css" />
+<link rel="stylesheet" href="~/css/Home.css" />
+<div class="Avaliacoes">
+    <input type="hidden" id="TituloHab" value="@ViewBag.HabilidadeDesc">
+    <button id="KillWind" class="btn btn-danger" style="float:right;width:50px;height:50px;position:relative">X</button>
+
+    <table id="DetalhesAv">
+    </table>
+</div>
+<script src="~/radial-progress-bar-master/radial-progress-bar.js"></script>
+<script>
+     $("#KillWind").click(function () {
+        $(".Avaliacoes").remove();
+       
+    })
+    GetHab(ShowNota);
+    function GetHab(callback) {
+        var Habilidade =  "@ViewBag.HabilidadeDesc"
+        var HabEncode = encodeURIComponent("@ViewBag.HabilidadeDesc")
+        var titulo = document.getElementById("TituloHab")
+        console.log(titulo.value)
+        console.log("Dentro Ajax: "+Habilidade)
+              $.ajax({
+                type: "POST",
+                url: '/Home/LoadAvaliacoes',
+                  dataType: "json",
+
+                  data: {HabDesc:titulo.value},
+                  success: callback
+            })
+    }
+
+    function ShowNota(Notas) {
+        var ArrayHab = [];
+        for (item in Notas) {
+                ArrayHab.push(Notas[item]);
+        }
+        console.log(ArrayHab);
+        for (i = 0; i < ArrayHab.length; i++) {
+            var Table = document.getElementById("DetalhesAv")
+            var tr = document.createElement('tr');
+            var tdConcentric = document.createElement('td');
+            var tdObs = document.createElement('td');
+            tdConcentric.setAttribute("id", "Concentric" + i);
+            var Obs= document.createTextNode(ArrayHab[i].obs)
+            tdObs.appendChild(Obs)
+            tdObs.style.color="white"
+            tr.appendChild(tdConcentric);
+            tr.appendChild(tdObs);
+            Table.appendChild(tr);
+            CriarConcentric2("Concentric" + i, ((ArrayHab[i].rating * 100) / 5));
+
+
+
+        }
+
+    }
+    function CriarConcentric2(id, perc) {
+            console.log(id)
+        jQuery("#" + id).radialProgress("init", {
+  'size': 100,
+  'fill':10,'color':"#eb0e28"
+}).radialProgress("to", {'perc': perc, 'time': 5000});
+        };
+
+</script>

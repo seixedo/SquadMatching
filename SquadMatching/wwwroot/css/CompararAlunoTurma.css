@@ -1,0 +1,27 @@
+﻿#corpoComparar {
+    margin-top: 20PX;
+    margin-left: 480PX;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.43);
+    animation: moveyTopDown;
+    animation-duration: 1000ms;
+    background-color: rgba(216, 213, 213, 0.64);
+    min-height: 200px;
+    max-height: 200px;
+    min-width: 400px;
+    max-width: 400px;
+    border-radius: 6px;
+    z-index: 2;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr,1fr;
+}
+
+#NotaAlunoContainer {
+    align-content: center;
+    min-height: 200px;
+    max-height: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    grid-column-start: 0;
+    grid-column-end: 1;
+}

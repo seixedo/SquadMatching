@@ -1,0 +1,213 @@
+﻿
+
+.login-form {
+   text-align:center;
+    margin-top: 50px !important;
+    margin:0 auto;
+    animation-name: slide;
+    animation-duration: 1s;
+    background-color: rgba(216, 213, 213, 0.64);
+    padding: 40px;
+    border-radius: 6px;
+    max-width: 300px;
+    min-height:400px;
+    max-height:400px;
+    overflow: hidden;
+    align-content:center;
+}
+
+
+
+.txtb {
+    display: block;
+    box-sizing: border-box;
+    width: 270px;
+    background: #ffffff28;
+    border: 1px solid white;
+    padding: 10px 20px;
+    color: black;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.txtb2 {
+    box-sizing: border-box;
+    width: 270px;
+    background: #ffffff28;
+    border: 1px solid white;
+    padding: 10px 20px;
+    color: white;
+    outline: none;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.input-group textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 270px;
+    background: #ffffff28;
+    border: 1px solid white;
+    padding: 10px 20px;
+    color: white;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center;
+}
+.textarea2 {
+
+ 
+    width: 270px;
+    background: #ffffff28;
+    border: 1px solid white;
+
+    color: white;
+    outline: none;
+    margin: 10px 0;
+    border-radius: 6px;
+    text-align: center;
+}
+.login-btn {
+    width: 240px;
+    background: #ff0000;
+    border: 0;
+    color: white;
+    padding: 10px 0 10px 0;
+    margin:0 auto;
+    box-sizing:border-box;
+    border-radius: 6px;
+    cursor: pointer;
+    max-width:225px;
+}
+
+.Elemento {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin-bottom: 10px;
+    background: #5344b7;
+    border-radius: 6px;
+    text-align: center;
+}
+
+
+.HabTxt {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+.remove {
+    grid-column-start: 3;
+    grid-column-end: 3;
+    align: center;
+    border-radius: 6px;
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    padding-left: 6px;
+    background: #ff0303;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hide-login-btn {
+    color: #000;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    cursor: pointer;
+    font-size: 24px;
+    opacity: .7;
+}
+
+.show-login-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: white;
+    border: 2px solid;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.labelProfilePic {
+    display: inline-block;
+}
+
+    .labelProfilePic h3 {
+        float: right;
+        padding-left: 10px;
+    }
+
+    .labelProfilePic img {
+        float: left;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        padding: 0px;
+        border: 2px solid white;
+    }
+
+.container2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    position:relative;
+    max-width:100%;
+    max-height:580px;
+    min-height:500px;
+    
+}
+    .container::-webkit-scrollbar{
+        display:none;
+    }
+
+    main {
+     
+        grid-column-start: 2;
+        grid-column-end: 2;
+    }
+
+html, body {
+    margin: 0;
+    padding-top: 40px;
+    box-sizing: border-box;
+    background: url(../images/LBL/uni-1280x720.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+#leftCol {
+    position: fixed;
+    width: 150px;
+    background-color: #DDD;
+    font-size: 21px;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 0;
+    height: 10px;
+}
+
+@keyframes slide {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

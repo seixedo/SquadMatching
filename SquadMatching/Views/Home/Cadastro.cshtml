@@ -1,0 +1,117 @@
+﻿@model SquadMatching.Models.CadastroModel;
+    <link rel="stylesheet" href="~/css/Cadastro.css" />
+@{
+
+    ViewData["Title"] = "Cadastro";
+    
+}
+    <body>
+        <div class="login-box">
+            <div class="login-form">
+                @using (Html.BeginForm("Cadastro", "Home", FormMethod.Post, new { encType = "multipart/form-data" }))
+                {
+                    <div style="margin-bottom: 25px" class="input-group">
+
+                        @Html.EditorFor(model => model.Login, new
+                   {
+                       htmlAttributes =
+                                                                     new
+                                                                     {
+                                                                         @class = "txtb",
+                                                                         placeholder = "Login",
+                                                                         autofocus = true,
+                                                                         required = "required",
+                                                                         minlenght = "10"
+
+
+
+
+
+                                                                     }
+                   })
+                        @Html.ValidationMessageFor(model => model.Login, "",
+                                                                     new { @class = "text-danger" })
+                    </div>
+                    <div style="margin-bottom: 25px" class="input-group">
+
+                        @Html.EditorFor(model => model.Senha, new
+                   {
+                       htmlAttributes =
+                                                            new
+                                                            {
+                                                                @class = "txtb",
+                                                                placeholder = "Senha",
+                                                                autofocus = true,
+                                                                required = "required"
+                                                            }
+                   })
+                        @Html.ValidationMessageFor(model => model.Senha, "",
+                                                            new { @class = "text-danger" })
+                    </div>
+                    <div style="margin-bottom: 25px" class="input-group">
+
+                        @Html.EditorFor(model => model.Nome, new
+                   {
+                       htmlAttributes =
+                                                       new
+                                                       {
+                                                           @class = "txtb",
+                                                           placeholder = "Nome",
+                                                           autofocus = true,
+                                                           required = "required"
+                                                       }
+                   })
+                        @Html.ValidationMessageFor(model => model.Nome, "",
+                                                       new { @class = "text-danger" })
+                    </div>
+                    <div style="margin-bottom: 25px" class="input-group">
+
+                        @Html.EditorFor(model => model.Matricula, new
+                   {
+                       htmlAttributes =
+                                                  new
+                                                  {
+                                                      @class = "txtb",
+                                                      placeholder = "Matricula",
+                                                      autofocus = true,
+                                                      required = "required"
+
+                                                  }
+                   })
+                        @Html.ValidationMessageFor(model => model.Matricula, "",
+                                                  new { @class = "text-danger" })
+                    </div>
+
+                    <div style="margin-bottom: 25px" class="input-group ">
+                        <div class="input-group-prepend btn btn-danger UploadBtn">
+                            <h5>UPLOAD FOTO</h5>
+                            @Html.TextBoxFor(m => m.image, new { type = "file", name = "Files" })
+                        </div>
+
+
+                    </div>
+                    
+                   
+                        
+                    
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <label>@ViewBag.Error</label>
+                        <br />
+                    }
+                    <div>
+                        <input class="login-btn" type="submit" value="ENVIAR" />
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+
+
+        
+        </body>

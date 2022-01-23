@@ -1,0 +1,222 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model SquadMatching.Models.AtividadeModel;
+@{ Layout = "_LayoutPerfil";}
+    <link rel="stylesheet" href="~/css/PainelProfessor.css"/>
+@{
+
+    ViewData["Title"] = "Cadastro tarefa";
+}
+    <div class="login-form">
+        @using (Html.BeginForm("PainelProfessor", "Home", new { ID = ViewBag.ID, Nome = ViewBag.Nome }, FormMethod.Post))
+        {
+      
+            <div style="margin-bottom: 25px;color:white;padding-left" class="input-group">
+                @Html.LabelFor(model=>model.Descricao,htmlAttributes: new { @class = "control-label",@style="padding-left:75px !important"})
+                @Html.TextAreaFor(model => model.Descricao, new
+           {
+               htmlAttributes =
+                                                    new
+                                                    {
+                                                        @class = "txtarea",
+                                                        @placeholder = "Descricao",
+                                                        required = "required"
+                                                    }
+           })
+                @Html.ValidationMessageFor(model => model.Descricao, "",
+                                                    new { @class = "text-danger" })
+            </div>
+            
+            <div class="form-group" style="text-align:center;color:white">
+                @Html.LabelFor(model => model.Habilidades, htmlAttributes: new { @class = "control-label" })
+                
+                    @Html.TextBoxFor(model => model.Habilidades, htmlAttributes: new { @class = "form-control txtb2" })
+
+                </div>
+            <a id="ErrorLabel"></a>
+            @Html.HiddenFor(model=>model.Habilidade)
+            <div id="MyContainer">
+
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <label>@ViewBag.Error</label>
+                <br />
+            }
+    <div class="align-content-lg-center" style="margin:0 auto;"id="Botao">
+        <!--<input class="login-btn" type="submit" value="ENVIAR" />-->
+
+    </div>
+
+        }
+
+    </div>
+
+
+
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        var qnt
+        var ListaHab
+        var ListaHab2 = new Array();
+        var remove = function ()    {
+            this.closest("div").remove();
+            ListaHab2= new Array()
+                        ListaHab = $("#MyContainer").children(".Elemento").children(".HabTxt");
+                        for (var i = 0; i < ListaHab.length; i++) {
+                           ListaHab2.push(ListaHab.eq(i).text());
+            }
+            var qnt = $("#MyContainer").children().length
+            console.log(qnt)
+            if (qnt < 1)
+            {
+                        console.log("Dentro do if");
+                var DivBotao = document.getElementById("Botao");
+                console.log("testando")
+                DivBotao.innerHTML=''
+                        }
+            $("#Habilidade").val(ListaHab2.toString());
+            
+            console.log("Dps de remover")
+            console.log(ListaHab2.toString())
+            $("#ErrorLabel").text("");
+        }
+        var lista = new Array();
+        $(document).ready(function () {
+            $("#Habilidades").autocomplete({
+
+                source: function (request, response) {
+                    $.ajax({
+
+                        url: "/Home/GetHabilidades",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefixo: request.term },
+                        success: function (data) {
+                            console.log(data)
+                            response($.map(data, function (item) {
+
+                                return { label: item.descricao, value: item.descricao };
+
+                            }
+
+                            ))
+
+
+
+
+                        },
+
+                    })
+                }, select: function (e, ui) {
+                    //Inserir(ui.item.label);
+            },
+                close: function (event, ui) {
+                     
+                },
+                messages: {
+                    noResults: "",
+                    results: function (count) {
+                        return count + (count > 1 ? ' results' : ' result ') + ' found';
+                    }
+                },
+
+
+            });
+        },
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            }),
+            
+           
+            
+
+        );
+        $("#Habilidades").keydown(function () {
+            if (event.keyCode == 13) {
+                var input =$("#Habilidades:text").val()
+                console.log(input)
+                Inserir(input);
+                
+            }
+            
+        })
+        function Inserir(ValorInp) {
+            console.log("Valor input:"+ValorInput)
+            $("#ErrorLabel").text("");
+            var qnt = $("#MyContainer").children().length;
+            var ValorInput = $("#Habilidades:text").val()
+            console.log(ValorInput)
+            if (ValorInput != "") {
+                if (qnt < 5) {
+                    var node = document.createElement("div");
+                    var txtBox = document.getElementById("Habilidades")
+                    node.classList.add("Elemento");
+
+                    var HabTxt = document.createElement("div");
+
+                    var nodevalue = document.createTextNode(ValorInp);
+                    HabTxt.appendChild(nodevalue);
+                    HabTxt.classList.add("HabTxt");
+                    node.appendChild(HabTxt);
+                    var button = document.createElement("p");
+                    button.classList.add("remove");
+                    button.append("X");
+                    button.addEventListener("click", remove, false);
+
+                    node.appendChild(button);
+                    var div = document.getElementById("MyContainer");
+                    var inputH = document.getElementById("Habilidade");
+                    div.appendChild(node);
+                    ListaHab2 = new Array()
+                    ListaHab = $("#MyContainer").children(".Elemento").children(".HabTxt");
+                    for (var i = 0; i < ListaHab.length; i++) {
+                        ListaHab2.push(ListaHab.eq(i).text());
+                    }
+
+
+                    $("#Habilidade").val(ListaHab2.toString());
+
+
+                    console.log(qnt)
+                    console.log("Dps de inserir")
+                    console.log(ListaHab2.toString());
+
+                } else {
+                    var ErrorLabel = document.getElementById("ErrorLabel");
+                    console.log(ErrorLabel)
+                    $("#ErrorLabel").text("Não é permitido inserir mais que 5 habilidades");
+                }
+
+            } else {
+                $("#ErrorLabel").text("Inserir Habilidade");
+            }
+                        
+                        $("#Habilidades:text").val("")
+                        qnt = $("#MyContainer").children().length
+                        console.log("Teste "+qnt)
+                         if (qnt == 1) {
+                                var botaoSend = document.createElement("input");
+                                botaoSend.classList.add("login-btn");
+                                botaoSend.type = "submit";
+                                botaoSend.value = "Enviar";
+                                var divBotao = document.getElementById("Botao");
+                                divBotao.appendChild(botaoSend);
+                        }
+                        var habilid = document.getElementById("Habilidades")
+                        console.log(habilid)
+                        
+        }
+
+           
+
+    </script>
+}
